@@ -17,13 +17,6 @@ jobs:
         - name: Installare Salesforce CLI
           run: npm install sfdx-cli --global
   
-        - name: Creare la directory assets se non esiste
-          run: mkdir -p assets
-  
-        - name: Creare il file della chiave JWT
-          run: |
-            echo "${{ secrets.SF_CERT }}" > assets/server.key
-  
         - name: Autenticazione con Salesforce
           run: |
             sfdx auth:jwt:grant --client-id ${{ secrets.SF_CLIENT_ID }} \
