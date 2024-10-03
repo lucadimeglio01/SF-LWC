@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title = "Search Contacts" icon-name = "standard:contact">
+        <lightning-input 
+            label = "Search Contact"
+            value = {contactName}
+            onchange = {inputHandle}
+            placeholder = "Insert Contact Name">
+        </lightning-input>
+
+        <!-- controllo sull'esistenza dei contatti -->
+        <template if:true = {contacts.length}>
+            <ul> 
+            <!-- iterazione sulla lista di contatti -->
+            <template for:each = {contacts} for:item = "contact">
+                <!-- assegno ad ogni contatto una chiave univoca (l'ID) -->
+                <li key = {contact.Id}> 
+                    <!-- quando l'utente clicca sul link href, parte la funzione contactHandle del js -->
+                    <a href = "javascript:void(0);" onclick = {contactHandle} data-id = {contact.Id} > 
+                        <!-- viene visualizzaot il nome del contatto corrente -->
+                        {contact.Name}
+                    </a>
+                </li>
+            </template>
+            </ul>
+        </template>
+
+    </lightning-card>
+</template>
