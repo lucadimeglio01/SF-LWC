@@ -17,13 +17,13 @@ jobs:
 
         - name: Deploy debug
           run: |
-            echo "SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}"
             echo "SF_USERNAME: ${{ secrets.SF_USERNAME }}" 
+            echo "SF_PASSWORD: ${{ secrets.SF_PASSWORD }}"
 
         - name: Autenticazione con Salesforce
           run: |
-            sfdx auth:jwt:grant --client-id ${{ secrets.SF_CLIENT_ID }} \
-            --jwt-key-file assets/server.key --username ${{ secrets.SF_USERNAME }} \
+            sfdx auth:login --username ${{ secrets.SF_USERNAME }} \
+            --password ${{ secrets.SF_PASSWORD }} \
             --instance-url https://login.salesforce.com
   
         - name: Deploy su Salesforce
