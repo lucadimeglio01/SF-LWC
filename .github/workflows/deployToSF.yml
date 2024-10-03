@@ -13,10 +13,12 @@ jobs:
     steps:
         - name: Checkout del repository
           uses: actions/checkout@v2
-  
-        - name: Creare il file della chiave JWT
+
+
+        - name: Deploy debug
           run: |
-            echo "${{ secrets.SF_CERT }}" > assets/server.key
+            echo "SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}"
+            echo "SF_USERNAME: ${{ secrets.SF_USERNAME }}" 
 
         - name: Autenticazione con Salesforce
           run: |
