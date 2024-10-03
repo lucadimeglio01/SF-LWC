@@ -14,15 +14,9 @@ jobs:
         - name: Checkout del repository
           uses: actions/checkout@v2
 
-
-        - name: Deploy debug
-          run: |
-            echo "SF_USERNAME: ${{ secrets.SF_USERNAME }}" 
-            echo "SF_PASSWORD: ${{ secrets.SF_PASSWORD }}"
-
         - name: Autenticazione con Salesforce
           run: |
-            sfdx auth:login --username ${{ secrets.SF_USERNAME }} \
+            sfdx force:auth:password:grant --username ${{ secrets.SF_USERNAME }} \
             --password ${{ secrets.SF_PASSWORD }} \
             --instance-url https://login.salesforce.com
   
