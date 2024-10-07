@@ -1,35 +1,40 @@
-name: Deploy to Salesforce
+name: Salesforce CLI Workflow
 
 on:
   push:
     branches:
-      - main   
+      - main  # or whichever branch you want to trigger on
 
 jobs:
-  deploy:
-    name: Deploy to Salesforce
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest  # or windows-latest if you're on Windows
 
     steps:
-        - name: Checkout del repository
-          uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2  # Check out your repository
 
-        - name: Install Salesforce CLI
-          run: |
-            sudo npm install --global sfdx-cli
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # Specify the version of Node.js
 
-        - name: Autenticazione con Salesforce
-          run: |
-            echo "${{ secrets.SF_USERNAME }}" > username.txt
-            echo "${{ secrets.SF_PASSWORD }}" > password.txt
-            echo "${{ secrets.SF_SECURITY_TOKEN }}" > token.txt
-            sf org login web --username "$(cat username.txt)" --password "$(cat password.txt)$(cat token.txt)"
+    - name: Install Salesforce CLI
+      run: npm install -g sfdx-cli  # Install Salesforce CLI globally
 
-          env:
-            SF_USERNAME: ${{ secrets.SF_USERNAME }}
-            SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
-            SF_SECURITY_TOKEN: ${{ secrets.SF_SECURITY_TOKEN }}
+    - name: Verify Salesforce CLI Installation
+      run: sf --version  # Check that Salesforce CLI is installed
 
-        - name: Deploy su Salesforce
-          run: |
-            sfdx force:source:deploy -p force-app/main/default
+    - name: Create credential files
+      run: |
+        echo "${{ secrets.SF_USERNAME }}" > username.txt
+        echo "${{ secrets.SF_PASSWORD }}" > password.txt
+        echo "${{ secrets.SF_SECURITY_TOKEN }}" > token.txt
+
+    - name: Login to Salesforce
+      run: |
+        sf org login web --username "$(cat username.txt)" --password "$(cat password.txt)$(cat token.txt)" --setalias MyOrg --setdefaultusername
+
+
+    - name: Deploy su Salesforce
+      run: |
+        sfdx force:source:deploy -p force-app/main/default
