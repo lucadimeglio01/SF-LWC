@@ -20,8 +20,11 @@ jobs:
 
         - name: Autenticazione con Salesforce
           run: |
-            sf org login web 
-  
+            echo "${{ secrets.SF_USERNAME }}" > username.txt
+            echo "${{ secrets.SF_PASSWORD }}" > password.txt
+            echo "${{ secrets.SF_SECURITY_TOKEN }}" > token.txt
+            sf org login web --username "$(cat username.txt)" --password "$(cat password.txt)$(cat token.txt)"
+
         - name: Deploy su Salesforce
           run: |
             sfdx force:source:deploy -p force-app/main/default
