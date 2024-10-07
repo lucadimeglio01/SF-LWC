@@ -20,7 +20,7 @@ jobs:
 
         - name: Autenticazione con Salesforce
           run: |
-            sf org login web --username ${{ secrets.SF_USERNAME }} --password ${{ secrets.SF_PASSWORD }} --instance-url https://login.salesforce.com
+            sf org login web 
   
         - name: Deploy su Salesforce
           run: |
