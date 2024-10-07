@@ -20,16 +20,12 @@ jobs:
 
     - name: Install Salesforce CLI
       run: |
-        curl -sL https://sfdx-cli.herokuapp.com/install.sh | bash
-        echo "Salesforce CLI installed successfully."
-
-    - name: Add CLI to PATH
-      run: echo "$HOME/.local/bin" >> $GITHUB_ENV  # Ensure the installation path is in the PATH
+        npm install -g sfdx-cli  # Install Salesforce CLI using npm
   
     - name: Verify Salesforce CLI Installation
       run: |
-        echo "PATH: $PATH"  # Print the current PATH to debug
-        sf --version  # Check if the Salesforce CLI is installed
+        echo "Salesforce CLI Version:"
+        sf --version  # Check that Salesforce CLI is installed
 
     - name: Create credential files
       run: |
