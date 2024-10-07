@@ -1,33 +1,33 @@
-name: Salesforce CLI Workflow
+name: Salesforce Deploy
 
 on:
   push:
     branches:
-      - main  # or whichever branch you want to trigger on
+      - main  
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # or windows-latest if you're on Windows
+    runs-on: ubuntu-latest 
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2  # Check out your repository
+      uses: actions/checkout@v2  
 
-    - name: Install Salesforce CLI
+    - name: Installazione CLI
       run: |
-        npm install -g sfdx-cli  # Install Salesforce CLI using npm
+        npm install -g sfdx-cli 
 
-    - name: Create credential files
+    - name: Creazione credenziali
       run: |
         echo "${{ secrets.SF_USERNAME }}" > username.txt
         echo "${{ secrets.SF_PASSWORD }}" > password.txt
         echo "${{ secrets.SF_SECURITY_TOKEN }}" > token.txt
 
-    - name: Login to Salesforce
+    - name: Salesforce Login
       run: |
         sf org login web --username "$(cat username.txt)" --password "$(cat password.txt)$(cat token.txt)" --setalias MyOrg --setdefaultusername
 
 
-    - name: Deploy su Salesforce
+    - name: Salesforce Deploy
       run: |
         sfdx force:source:deploy -p force-app/main/default
