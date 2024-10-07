@@ -14,9 +14,13 @@ jobs:
         - name: Checkout del repository
           uses: actions/checkout@v3
 
+        - name: Install Salesforce CLI
+          run: |
+            sudo npm install --global sfdx-cli
+
         - name: Autenticazione con Salesforce
           run: |
-            sfdx force:auth:password:grant --username ${{ secrets.SF_USERNAME }} --password ${{ secrets.SF_PASSWORD }} --instance-url https://login.salesforce.com
+            sfdx force:auth:web:login --username ${{ secrets.SF_USERNAME }} --password ${{ secrets.SF_PASSWORD }} --instance-url https://login.salesforce.com
   
         - name: Deploy su Salesforce
           run: |
