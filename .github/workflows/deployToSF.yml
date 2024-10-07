@@ -16,9 +16,7 @@ jobs:
 
         - name: Autenticazione con Salesforce
           run: |
-            sfdx force:auth:password:grant --username ${{ secrets.SF_USERNAME }} \
-            --password ${{ secrets.SF_PASSWORD }} \
-            --instance-url https://login.salesforce.com
+            sfdx force:auth:password:grant --username ${{ secrets.SF_USERNAME }} --password ${{ secrets.SF_PASSWORD }} --instance-url https://login.salesforce.com
   
         - name: Deploy su Salesforce
           run: |
