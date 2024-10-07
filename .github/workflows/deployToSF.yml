@@ -19,9 +19,7 @@ jobs:
         node-version: '16'  # Specify the version of Node.js
 
     - name: Install Salesforce CLI
-      run: |
-        curl -sL https://sfdx-cli.herokuapp.com/install.sh | bash  # Install Salesforce CLI
-        echo "Salesforce CLI installed successfully."
+      run: npm install -g sfdx-cli  # Install Salesforce CLI globally
 
     - name: Verify Salesforce CLI Installation
       run: sf --version  # Check that Salesforce CLI is installed
