@@ -1,26 +1,28 @@
-#name: Salesforce Deploy
-#
-#on:
-#  push:
-#    branches:
-#      - main  
-#
-#jobs:
-#  build:
-#    runs-on: ubuntu-latest 
-#
-#    steps:
-#    - name: Checkout code
-#      uses: actions/checkout@v2  
-#
-#    - name: Installazione CLI
-#      run: |
-#        npm install -g @salesforce/cli
-#
-#    - name: Salesforce Login via JWT
-#      run: |
-#        echo "$#{{ secrets.SF_PRIVATE_KEY }}" | sf auth jwt:grant --clientid $#{{ secrets.SF_CLIENT_ID }} --jwtkeyfile /dev/stdin #--username $#{{ secrets.SF_USERNAME }} --setdefaultdevhubusername --alias my-hub-org
+name: Salesforce Deploy
 
-#    - name: Salesforce Deploy
-#      run: |
-#        sf deploy source -x manifest/package.xml -u my-hub-org
+on:
+  pull_request:
+    types: [closed]  # Trigger sul merge (pull request chiusa)
+    branches:
+      - main  
+
+jobs:
+  build:
+    if: github.event.pull_request.merged == true 
+    runs-on: ubuntu-latest 
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  
+
+    - name: Installazione CLI
+      run: |
+        npm install -g @salesforce/cli 
+
+    - name: Salesforce Login via JWT
+      run: |
+        echo "${{ secrets.SF_PRIVATE_KEY }}" | sf auth:jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile /dev/stdin --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --alias my-hub-org
+
+    - name: Salesforce Deploy
+      run: |
+        sf deploy metadata --metadata-dir manifest/package.xml --target-org my-hub-org
