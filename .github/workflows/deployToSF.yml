@@ -27,8 +27,10 @@ jobs:
                             --jwtkeyfile server.key \
                             --username ${{ secrets.SF_USERNAME }} \
                             --instanceurl https://login.salesforce.com \
-                            --setdefaultdevhubusername
+                            --setdefaultdevhubusername \
+                            --alias my-hub-org
 
     - name: Salesforce Deploy
       run: |
-        sfdx force:source:deploy -p force-app/main/default
+        sf project deploy start -p force-app/main/default -u my-hub-org
+
