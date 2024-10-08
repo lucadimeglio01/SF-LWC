@@ -17,14 +17,9 @@ jobs:
       run: |
         npm install -g @salesforce/cli
 
-    - name: Creare e Usare File Temporaneo per la Chiave Privata
+    - name: Salesforce Login via JWT
       run: |
-        # Usa printf per gestire correttamente caratteri speciali
-        printf "%s" "${{ secrets.SF_PRIVATE_KEY }}" > private_key.pem
-        # Usare il file per autenticazione
-        sf auth jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile private_key.pem --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --alias my-hub-org
-        # Rimuovere il file temporaneo
-        rm private_key.pem
+        echo "${{ secrets.SF_PRIVATE_KEY }}" | sf auth jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile /dev/stdin --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --alias my-hub-org
 
     - name: Salesforce Deploy
       run: |
