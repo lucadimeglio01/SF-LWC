@@ -20,7 +20,6 @@ jobs:
     - name: Salesforce Login via JWT
       run: |
         echo "${{ secrets.SF_PRIVATE_KEY }}" | sfdx force:auth:jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile /dev/stdin --username ${{ secrets.SF_USERNAME }} \
-        --instanceurl https://login.salesforce.com \ 
         --setdefaultdevhubusername \ 
         --alias my-hub-org
 
