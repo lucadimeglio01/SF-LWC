@@ -1,4 +1,4 @@
-name: Salesforce Deploy 2 (SF)
+name: Salesforce Deploy
 
 on:
   pull_request:
@@ -21,9 +21,8 @@ jobs:
 
     - name: Salesforce Login via JWT
       run: |
-        echo "${{ secrets.SF_PRIVATE_KEY }}" | sf auth:jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile /dev/stdin --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --alias my-hub-org
+        echo "${{ secrets.SF_PRIVATE_KEY }}" | sf auth:jwt:grant --client-id ${{ secrets.SF_CLIENT_ID }} --jwt-key-file /dev/stdin --username ${{ secrets.SF_USERNAME }} --set-default-dev-hub --alias my-hub-org
 
     - name: Salesforce Deploy
       run: |
         sf deploy metadata --manifest manifest/package.xml --target-org my-hub-org
-
