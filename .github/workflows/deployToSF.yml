@@ -2,13 +2,15 @@ name: Salesforce Deploy
 
 on:
   pull_request:
-    types: [closed]  # Trigger when a pull request is closed (merged)
+    types: [closed]  # Trigger sul merge (pull request chiusa)
     branches:
-      - main  # Only for main branch
+      - main  
 
+      # Controllo sul merge della pull request
+      
 jobs:
   build:
-    if: github.event.pull_request.merged == true  # Check if the pull request was merged
+    if: github.event.pull_request.merged == true 
     runs-on: ubuntu-latest 
 
     steps:
