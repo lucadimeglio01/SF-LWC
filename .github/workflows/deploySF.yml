@@ -17,21 +17,29 @@ jobs:
       run: |
         npm install -g @salesforce/cli
 
-    - name: Debug Segreti
+    - name: Creare File Temporaneo per la Chiave Privata
       run: |
-        echo "Client ID: ${{ secrets.SF_CLIENT_ID }}"
-        echo "Username: ${{ secrets.SF_USERNAME }}"
-        echo "Chiave privata lunghezza: $(echo "${{ secrets.SF_PRIVATE_KEY }}" | wc -c)"
-        echo "Controllo chiave privata (prime 5 righe):"
-        echo "${{ secrets.SF_PRIVATE_KEY }}" | head -n 5
-
-    - name: Creare e Usare File Temporaneo per la Chiave Privata
-      run: |
+        # Creare il file della chiave privata in modo esplicito e fare un check
         printf "%s" "${{ secrets.SF_PRIVATE_KEY }}" > private_key.pem
-        sf auth jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile private_key.pem --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --alias my-hub-org
+        echo "Contenuto del file chiave privata:"
+        cat private_key.pem
+        echo "Verifica file creato correttamente."
+
+    - name: Salesforce Login via JWT
+      run: |
+        # Verifica che il file sia accessibile e usalo per l'autenticazione
+        if [[ -f "private_key.pem" ]]; then
+          sf auth jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile private_key.pem --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --alias my-hub-org
+        else
+          echo "Errore: il file della chiave privata non esiste."
+          exit 1
+        fi
+
+    - name: Rimuovere il File Temporaneo
+      run: |
+        # Rimuovi il file una volta terminato
         rm private_key.pem
 
     - name: Salesforce Deploy
       run: |
         sf deploy source -x manifest/package.xml -u my-hub-org
-
