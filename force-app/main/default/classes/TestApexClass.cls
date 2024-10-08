@@ -1,6 +1,6 @@
 public with sharing class TestApexClass {
     public TestApexClass() {
 
-        // deploy selettivo 1012
+        // Proviamo il nuovo SF
     }
 }
