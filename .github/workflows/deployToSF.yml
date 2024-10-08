@@ -19,7 +19,7 @@ jobs:
 
     - name: Creazione file chiave privata
       run: |
-        echo "${{ secrets.SF_PRIVATE_KEY }}" > server.key
+        echo "${{ secrets.SF_PRIVATE_KEY }}" | some_command --key
 
     - name: Salesforce Login via JWT
       run: |
