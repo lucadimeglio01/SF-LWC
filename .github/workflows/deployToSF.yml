@@ -32,5 +32,4 @@ jobs:
 
     - name: Salesforce Deploy
       run: |
-        sfdx force:source:deploy -p force-app/main/default -u my-hub-org
-
+        sfdx force:source:deploy -x manifest\package.xml -u my-hub-org
