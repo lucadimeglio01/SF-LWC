@@ -17,9 +17,19 @@ jobs:
       run: |
         npm install -g @salesforce/cli
 
-    - name: Salesforce Login via JWT
+    - name: Debug Segreti
       run: |
-        echo "${{ secrets.SF_PRIVATE_KEY }}" | sf auth jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile /dev/stdin --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --alias my-hub-org
+        echo "Client ID: ${{ secrets.SF_CLIENT_ID }}"
+        echo "Username: ${{ secrets.SF_USERNAME }}"
+        echo "Chiave privata lunghezza: $(echo "${{ secrets.SF_PRIVATE_KEY }}" | wc -c)"
+        echo "Controllo chiave privata (prime 5 righe):"
+        echo "${{ secrets.SF_PRIVATE_KEY }}" | head -n 5
+
+    - name: Creare e Usare File Temporaneo per la Chiave Privata
+      run: |
+        printf "%s" "${{ secrets.SF_PRIVATE_KEY }}" > private_key.pem
+        sf auth jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} --jwtkeyfile private_key.pem --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --alias my-hub-org
+        rm private_key.pem
 
     - name: Salesforce Deploy
       run: |
