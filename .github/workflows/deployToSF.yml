@@ -17,16 +17,17 @@ jobs:
       run: |
         npm install -g sfdx-cli 
 
-    - name: Creazione credenziali
+    - name: Creazione file chiave privata
       run: |
-        echo "${{ secrets.SF_USERNAME }}" > username.txt
-        echo "${{ secrets.SF_PASSWORD }}" > password.txt
-        echo "${{ secrets.SF_SECURITY_TOKEN }}" > token.txt
+        echo "${{ secrets.SF_PRIVATE_KEY }}" > server.key
 
-    - name: Salesforce Login
+    - name: Salesforce Login via JWT
       run: |
-        sf org login web --username "$(cat username.txt)" --password "$(cat password.txt)$(cat token.txt)" --setalias MyOrg --setdefaultusername
-
+        sfdx auth:jwt:grant --clientid ${{ secrets.SF_CLIENT_ID }} \
+                            --jwtkeyfile server.key \
+                            --username ${{ secrets.SF_USERNAME }} \
+                            --instanceurl https://login.salesforce.com \
+                            --setdefaultdevhubusername
 
     - name: Salesforce Deploy
       run: |
