@@ -32,5 +32,5 @@ jobs:
 
     - name: Salesforce Deploy
       run: |
-        sf project deploy start -p force-app/main/default -u my-hub-org
+        sfdx force:source:deploy -p force-app/main/default -u my-hub-org
 
