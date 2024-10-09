@@ -25,4 +25,4 @@ jobs:
 
     - name: Salesforce Deploy
       run: |
-        sf deploy metadata --manifest manifest/package.xml --target-org my-hub-org
+        sf project deploy start --manifest manifest/package.xml --target-org my-hub-org
