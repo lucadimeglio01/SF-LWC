@@ -2,13 +2,12 @@ name: Salesforce Deploy
 
 on:
   pull_request:
-    types: [closed]  # Trigger sul merge (pull request chiusa)
+    types: [opened, synchronize]  # Trigger sul merge (pull request chiusa)
     branches:
       - main  
 
 jobs:
   build:
-    if: github.event.pull_request.merged == true 
     runs-on: ubuntu-latest 
 
     steps:
