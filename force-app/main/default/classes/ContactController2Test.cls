@@ -49,6 +49,7 @@ public class ContactController2Test {
         Set<String> expectedContactNames = new Set<String>{'John Doe', 'Jane Doe'};
         for (Contact c : results) {
             System.assert(expectedContactNames.contains(c.Name), 'Il contatto trovato non è quello atteso: ' + c.Name);
+            System.debug('Contatto: ' + c.Name);
         }
     }
 
