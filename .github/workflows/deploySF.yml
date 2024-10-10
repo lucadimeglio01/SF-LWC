@@ -38,12 +38,14 @@ jobs:
       run: |
         TEST_CLASSES=$(grep -rl "isTest" force-app/main/default/classes/ | grep -E "\.cls" | sed 's/.*\///;s/\.cls//')
         sf project deploy start --manifest manifest/package.xml --target-org my-hub-org --test-level RunSpecifiedTests --tests $TEST_CLASSES --wait 30
-
-#       sf project deploy start --manifest manifest/package.xml --target-org my-hub-org --test-level RunLocalTests --wait 30
-
 #
                                 # 4 - Esegue il deploy su Salesforce
+                              
+                              # Utilizza il comando 'grep' per trovare tutte le classi Apex che contengono la keyword 'isTest'
+                              # Filtra i file `.cls`, rimuove il percorso e l'estensione e passa i nomi delle classi di test
+
                               # Avvia il processo di deploy col comando ' sf project deploy start '
                               # Specifica il file ' package.xml ' del progetto per determinare i componenti da deployare
-                              # Esegue tutti i test Apex locali (di default) con ' --test-level RunLocalTests '
+                              # Esegue solo le classi di test specifiche utilizzando ' --test-level RunSpecifiedTests '
+                              # Assegna i nomi delle classi alla variabile TEST_CLASSES e la passa al parametro '--tests'
                               # Imposta un timeout di attesa di 30 minuti per completare il deploy e l'esecuzione dei test
