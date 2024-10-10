@@ -36,10 +36,10 @@ jobs:
 
     - name: Salesforce Deploy
       run: |
-        sf project deploy start --manifest manifest/package.xml --target-org my-hub-org
+        sf project deploy start --manifest manifest/package.xml --target-org my-hub-org --test-level RunLocalTests --wait 30
 #
                                 # 4 - Esegue il deploy su Salesforce
                               # Avvia il processo di deploy col comando ' sf project deploy start '
                               # Specifica il file ' package.xml ' del progetto per determinare i componenti da deployare
-                              # Indica che il deploy deve essere eseguito verso l'org referenziata precedentemente con ' my-hub-org '
-
+                              # Esegue tutti i test Apex locali (di default) con ' --test-level RunLocalTests '
+                              # Imposta un timeout di attesa di 30 minuti per completare il deploy e l'esecuzione dei test
