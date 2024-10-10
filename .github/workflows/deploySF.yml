@@ -1,27 +1,46 @@
-name: Salesforce Deploy
+name: Salesforce Deploy         # Nome del workflow 
 
-on:
-  pull_request:
-    types: [opened, synchronize]  # Trigger sul merge (pull request chiusa)
+on:                                 
+  pull_request:                    
+    types: [opened, synchronize]    
     branches:
-      - main  
+      - main 
+                                # Trigger sul workflow -> apertura o sincronizzazione (aggiunta commit) di una pull request 
+                                # attivato sul branch main
 
-jobs:
+jobs:                              
   build:
-    runs-on: ubuntu-latest 
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2  
-
-    - name: Installazione CLI
-      run: |
-        npm install -g @salesforce/cli 
+    runs-on: ubuntu-latest          
+                                # Jobs che deve svolgere il workflow:
+                                     
+    steps:                          
+    - name: Checkout code         
+      uses: actions/checkout@v2     
+                                
+                                # 1 - Clona il codice del repo all'interno della macchina virtuale
+                                    
+    - name: Installazione CLI       
+      run: |                        
+        npm install -g @salesforce/cli
+ #       
+                                # 2 - Installa la CLI (Command Line Interface) di Salesforce (altrimenti non potremmo utilizzare i comandi successivi)
 
     - name: Salesforce Login via JWT
-      run: |
+      run: |                        
         echo "${{ secrets.SF_PRIVATE_KEY }}" | sf auth:jwt:grant --client-id ${{ secrets.SF_CLIENT_ID }} --jwt-key-file /dev/stdin --username ${{ secrets.SF_USERNAME }} --set-default-dev-hub --alias my-hub-org
+#
+                                # 3 - Esegue il login a Salesforce tramite JWT (token)
+                            # Passa la chiave privata, l'ID del client e l'username di SF (secret di github) al comando 'sf auth:jwt:grant' per autenticarsi
+                            # Utilizza il JWT tramite standard input ' --jwt-key-file /dev/stdin ' che riceve dalla private key passata col comando 'echo' 
+                            # Infine assegna l'alias ' my-hub-org ' all'org collegato per referenziarlo nei comandi futuri
 
     - name: Salesforce Deploy
       run: |
         sf project deploy start --manifest manifest/package.xml --target-org my-hub-org
+#
+                                # 4 - Esegue il deploy su Salesforce
+                              # Avvia il processo di deploy col comando ' sf project deploy start '
+                              # Specifica il file ' package.xml ' del progetto per determinare i componenti da deployare
+                              # Indica che il deploy deve essere eseguito verso l'org referenziata precedentemente con ' my-hub-org '
+
+# Il comando 'sf project deploy start' esegue il deploy del codice presente nel progetto fornito
