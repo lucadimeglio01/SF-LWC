@@ -43,4 +43,3 @@ jobs:
                               # Specifica il file ' package.xml ' del progetto per determinare i componenti da deployare
                               # Indica che il deploy deve essere eseguito verso l'org referenziata precedentemente con ' my-hub-org '
 
-# Il comando 'sf project deploy start' esegue il deploy del codice presente nel progetto fornito
