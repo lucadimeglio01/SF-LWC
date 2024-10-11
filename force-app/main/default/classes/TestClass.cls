@@ -67,16 +67,15 @@ public class TestClass {
         System.assertEquals(0,results.size(), 'La ricerca dovrebbe restituire 0 contatti');
 
         System.debug('Risultato ricerca "Nome a cazzo": ');
-        int conta = 0;
+        Integer contatore = 0;
         for (Contact c : results){
             if (c.Name != null){
-            System.debug(c.Name);
-            } 
-            else {
-                conta++;
-             }
+                System.debug(c.Name);
+            } else {
+                contatore ++;
             }
-        if (conta == 3 ){
+        }
+        if (contatore == 3 ){
             System.debug('La ricerca ha fornito 0 risultati.');
         }
     }
