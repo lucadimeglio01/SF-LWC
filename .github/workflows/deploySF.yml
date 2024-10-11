@@ -36,7 +36,7 @@ jobs:
 
     - name: Salesforce Deploy
       run: |
-        TEST_CLASSES=$(grep -rl "isTest" force-app/main/default/classes/ | grep -E "\.cls" | sed 's/.*\///;s/\.cls//')
+        TEST_CLASSES=$(grep -rl "@isTest" force-app/main/default/classes/ | grep -E "\.cls" | sed 's/.*\///;s/\.cls//')
         sf project deploy start --manifest manifest/package.xml --target-org my-hub-org --test-level RunSpecifiedTests --tests $TEST_CLASSES --wait 30
 #
                                 # 4 - Esegue il deploy su Salesforce
