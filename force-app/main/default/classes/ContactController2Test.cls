@@ -29,11 +29,13 @@ public class ContactController2Test {
         Contact contact1 = new Contact(FirstName = 'John', LastName = 'Doe', Email = 'john.doe@example.com');
         Contact contact2 = new Contact(FirstName = 'Jane', LastName = 'Doe', Email = 'jane.doe@example.com');
         Contact contact3 = new Contact(FirstName = 'Johnny', LastName = 'Smith', Email = 'johnny.smith@example.com');
+        Contact contact4 = new Contact(FirstName = 'Giuann', LastName = 'Mastuppepp', Email = 'giuann.mast@example.com');
         
         // Inseriamo i contatti nel database
         insert contact1;
         insert contact2;
         insert contact3;
+        insert contact4;
     }
 
     // Metodo di test per verificare che la ricerca restituisca risultati corretti
@@ -44,6 +46,7 @@ public class ContactController2Test {
         
         // 2. Verificare che la lista contenga i contatti previsti (dovrebbe contenere 2 contatti: John e Jane Doe)
         System.assertEquals(2, results.size(), 'La ricerca dovrebbe restituire 2 contatti');
+        System.assertEquals(3, results.size(), 'La ricerca dovrebbe restituire 3 contatti');
 
         // 3. Assicurarsi che i nomi dei contatti siano corretti
         Set<String> expectedContactNames = new Set<String>{'John Doe', 'Jane Doe'};
@@ -52,6 +55,7 @@ public class ContactController2Test {
             System.debug('Contatto: ' + c.Name);
         }
     }
+
 
     // Metodo di test per verificare che una ricerca senza risultati funzioni correttamente
     @isTest
