@@ -87,29 +87,3 @@ public class ContactController2Test {
         }
     }
 }
-
-
-
-/*
-
-Spiegazione della classe di test:
-Metodo @testSetup:
-
-In questo metodo, creiamo tre contatti di esempio che saranno utilizzati in tutti i test.
-Inseriamo i contatti nel database Salesforce con insert contact1;, insert contact2;, ecc.
-Metodo testSearchContact():
-
-Questo metodo verifica che la ricerca con la stringa 'Doe' restituisca esattamente 2 contatti: John Doe e Jane Doe.
-Usiamo System.assertEquals per controllare il numero di risultati e System.assert per verificare che i nomi siano quelli attesi.
-Metodo testSearchContactNoResults():
-
-Questo test verifica che una ricerca con una stringa che non corrisponde a nessun contatto (come 'Nonexistent') restituisca una lista vuota.
-Metodo testSearchContactEmptyString():
-
-Verifichiamo cosa succede se l'utente cerca con una stringa vuota. Nel caso del tuo controller, la query con LIKE '%' potrebbe restituire tutti i contatti, quindi ci aspettiamo che la lista contenga tutti i 3 contatti creati.
-Considerazioni aggiuntive:
-La cacheability del metodo @AuraEnabled(cacheable=true) significa che stai utilizzando la cache per migliorare le prestazioni del metodo. La cache viene solitamente ignorata durante i test, quindi non è necessario fare considerazioni particolari in questo contesto.
-La copertura del codice sarà garantita poiché stiamo testando sia i casi in cui vengono trovati contatti, sia quelli in cui non ne vengono trovati.
-Questa classe di test copre i casi principali e fornisce una copertura del metodo searchContact per la distribuzione in produzione.
-
-*/
