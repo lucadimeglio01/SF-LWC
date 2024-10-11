@@ -65,6 +65,10 @@ public class ContactController2Test {
         
         // Verificare che la lista sia vuota
         System.assertEquals(0, results.size(), 'La ricerca dovrebbe restituire 0 contatti');
+        System.debug('Lista dei Contatti: ');
+        for (Contact c : results){
+            System.debug(c.Name);
+        }
     }
 
     // Metodo di test per verificare che la ricerca con una stringa vuota funzioni correttamente
