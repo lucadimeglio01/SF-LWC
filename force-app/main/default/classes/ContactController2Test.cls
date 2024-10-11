@@ -51,7 +51,7 @@ public class ContactController2Test {
         Set<String> expectedContactNames = new Set<String>{'John Doe', 'Jane Doe'};
         for (Contact c : results) {
             System.assert(expectedContactNames.contains(c.Name), 'Il contatto trovato non è quello atteso: ' + c.Name);
-            System.debug('Contatto: ' + c.Name);
+            System.debug('Contatti "Doe": ' + c.Name);
         }
     }
 
@@ -76,6 +76,10 @@ public class ContactController2Test {
         // Se vuoi che restituisca 0 contatti in produzione, potresti dover gestire questo caso nel controller Apex
         // Qui ci aspettiamo che vengano restituiti tutti e 3 i contatti creati
         System.assertEquals(4, results.size(), 'La ricerca con stringa vuota dovrebbe restituire tutti i contatti');
+        System.debug('Lista dei Contatti: ');
+        for (Contact c : results){
+            System.debug(c.Name);
+        }
     }
 }
 
