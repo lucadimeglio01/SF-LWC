@@ -64,24 +64,21 @@ public class TestClass {
         
         List<Contact> results = ContactController2.searchContact('Nome a cazzo');
 
-        Boolean conta = System.assertEquals(0,results.size(), 'La ricerca dovrebbe restituire 0 contatti');
+        System.assertEquals(0,results.size(), 'La ricerca dovrebbe restituire 0 contatti');
 
         System.debug('Risultato ricerca "Nome a cazzo": ');
-        // int conta = 0;
+        int conta = 0;
         for (Contact c : results){
             if (c.Name != null){
             System.debug(c.Name);
             } 
-            //else {
-            //     conta++;
-            //  }
+            else {
+                conta++;
+             }
             }
-        if (conta){
+        if (conta == 3 ){
             System.debug('La ricerca ha fornito 0 risultati.');
         }
-        // if (conta == 3){
-        //     System.debug('La ricerca ha fornito 0 risultati.');
-        // }
     }
 
 
