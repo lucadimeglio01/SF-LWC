@@ -67,7 +67,7 @@ public class TestClass {
         System.assertEquals(0,results.size(), 'La ricerca dovrebbe restituire 0 contatti');
 
         System.debug('');
-        System.debug('Risultato ricerca "Nome a cazzo": ');
+        System.debug('Risultato ricerca con nome inesistente: ');
         Integer contatore = 0;
         for (Contact c : results){
             if (c.Name != null){
