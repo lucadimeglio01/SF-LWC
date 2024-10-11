@@ -66,16 +66,16 @@ public class TestClass {
 
         System.assertEquals(0,results.size(), 'La ricerca dovrebbe restituire 0 contatti');
 
+        System.debug('');
         System.debug('Risultato ricerca "Nome a cazzo": ');
         Integer contatore = 0;
         for (Contact c : results){
             if (c.Name != null){
+                contatore++;
                 System.debug(c.Name);
-            } else {
-                contatore ++;
             }
         }
-        if (contatore == 3 ){
+        if (contatore == 0 ){
             System.debug('La ricerca ha fornito 0 risultati.');
         }
     }
@@ -89,6 +89,8 @@ public class TestClass {
         List<Contact> results = ContactController2.searchContact('');
 
         System.assertEquals(3,results.size(),'La ricerca con stringa vuota dovrebbe restituire tutti i contatti');
+        
+        System.debug('');
         System.debug('Risultato ricerca con stringa vuota: ');
         for (Contact c : results){
             System.debug(c.Name);
