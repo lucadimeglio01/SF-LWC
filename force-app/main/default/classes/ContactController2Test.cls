@@ -29,11 +29,13 @@ public class ContactController2Test {
         Contact contact1 = new Contact(FirstName = 'John', LastName = 'Doe', Email = 'john.doe@example.com');
         Contact contact2 = new Contact(FirstName = 'Jane', LastName = 'Doe', Email = 'jane.doe@example.com');
         Contact contact3 = new Contact(FirstName = 'Johnny', LastName = 'Smith', Email = 'johnny.smith@example.com');
+        Contact contact4 = new Contact(FirstName = 'Juan', LastName = 'Pepp', Email = 'juan.pepp@example.com');
         
         // Inseriamo i contatti nel database
         insert contact1;
         insert contact2;
         insert contact3;
+        insert contact4;
     }
 
     // Metodo di test per verificare che la ricerca restituisca risultati corretti
@@ -73,7 +75,7 @@ public class ContactController2Test {
         // Dato che la query usa il LIKE '%', una stringa vuota potrebbe restituire tutti i contatti
         // Se vuoi che restituisca 0 contatti in produzione, potresti dover gestire questo caso nel controller Apex
         // Qui ci aspettiamo che vengano restituiti tutti e 3 i contatti creati
-        System.assertEquals(3, results.size(), 'La ricerca con stringa vuota dovrebbe restituire tutti i contatti');
+        System.assertEquals(4, results.size(), 'La ricerca con stringa vuota dovrebbe restituire tutti i contatti');
     }
 }
 
