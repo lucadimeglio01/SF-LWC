@@ -19,9 +19,7 @@
  *
  * See the Apex Language Reference for more information about Testing and Code Coverage.
  */
-
- @ClassTest
- @isTest
+@isTest
 public class TestClass {
 
     // Metodo per inserimento dati mock
